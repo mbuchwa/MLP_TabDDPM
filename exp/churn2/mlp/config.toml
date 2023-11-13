@@ -1,0 +1,51 @@
+seed = 0
+parent_dir = "exp/churn2/mlp"
+real_data_path = "data/churn2/"
+num_numerical_features = 7
+mlp_type='binary_classification'
+mlp_checkpoint='epoch=499-step=25000.ckpt'
+device = "cuda:0"
+
+[model_params]
+d_in = 16
+num_classes = 2
+is_y_cond = true
+
+[model_params.rtdl_params]
+d_layers = [
+    512,
+    1024,
+    1024,
+    1024,
+    1024,
+    256,
+]
+dropout = 0.0
+
+[train.main]
+epochs = 500
+lr = 0.001
+weight_decay = 0.00001
+batch_size = 128
+
+[train.T]
+seed = 0
+normalization = "quantile"
+num_nan_policy = "__none__"
+cat_nan_policy = "__none__"
+cat_min_frequency = "__none__"
+cat_encoding = "one-hot"
+y_policy = "default"
+
+[eval.type]
+eval_model = "mlp"
+eval_type = "synthetic"
+
+[eval.T]
+seed = 0
+normalization = "quantile"
+num_nan_policy = "__none__"
+cat_nan_policy = "__none__"
+cat_min_frequency = "__none__"
+cat_encoding = "one-hot"
+y_policy = "default"
